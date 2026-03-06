@@ -15,6 +15,8 @@ from agents.github_agent import agent_github
 
 from middleware.middleware_customizado import tool_erros
 
+
+from middleware.cortar_mensagem import cortar_mensagens
 from utils.error_summarizer import summarize_error
 
 
@@ -40,7 +42,7 @@ Para gerenciar o Github use: 'agent_github'.
 
 
 orquestrador = create_agent(
-    model=model, tools=tools, system_prompt=PROMPT, middleware=[tool_erros], checkpointer=InMemorySaver()
+    model=model, tools=tools, system_prompt=PROMPT, middleware=[tool_erros, cortar_mensagens], checkpointer=InMemorySaver()
 )
 
 
