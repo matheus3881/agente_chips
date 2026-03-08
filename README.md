@@ -1,17 +1,17 @@
 # Agente JurCERJA
 
-Assistente multiagente com interface via Telegram, focado em orquestrar tarefas de pesquisa web, GitHub e filesystem.
-O projeto usa um agente principal (orquestrador) que delega para subagentes especializados conforme a intenção da mensagem.
+Assistente multiagente com interface via Telegram para orquestrar tarefas de pesquisa web, GitHub e filesystem.
+O projeto usa um agente principal (orquestrador) que delega para subagentes especializados.
 
 ## Funcionalidades
 
 - Resposta a mensagens de texto no Telegram
-- Transcrição de áudio (voz) para texto com `faster-whisper`
-- Orquestração de subagentes por domínio:
+- Transcricao de audio (voz) para texto com `faster-whisper`
+- Orquestracao de subagentes por dominio:
 - `agent_tavily`: pesquisas web
-- `agent_github`: ações em GitHub via MCP
-- `agent_filesystem`: leitura/criação de arquivos em diretório permitido via MCP
-- Middleware para tratamento de erros e controle de histórico de mensagens
+- `agent_github`: acoes em GitHub via MCP
+- `agent_filesystem`: leitura e criacao de arquivos em diretorio permitido via MCP
+- Middleware para tratamento de erros e controle de historico de mensagens
 
 ## Arquitetura (resumo)
 
@@ -22,8 +22,8 @@ O projeto usa um agente principal (orquestrador) que delega para subagentes espe
 - Middleware: `src/middleware/`
 
 Fluxo:
-1. Usuário envia texto/áudio no Telegram.
-2. `tele.py` recebe e, se necessário, transcreve áudio.
+1. Usuario envia texto/audio no Telegram.
+2. `tele.py` recebe e, se necessario, transcreve audio.
 3. `orquestrador.py` decide qual subagente chamar.
 4. Subagente executa tools MCP e retorna resposta final ao Telegram.
 
@@ -31,10 +31,10 @@ Fluxo:
 
 - Python 3.12+
 - `pip`
-- Node.js + `npx` (necessário para MCP de filesystem/playwright)
+- Node.js + `npx` (necessario para MCP de filesystem/playwright)
 - Tokens/API keys configurados em `.env`
 
-## Instalação
+## Instalacao
 
 ```bash
 python -m venv .venv
@@ -42,12 +42,12 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Configuração
+## Configuracao
 
 1. Copie `.env.example` para `.env`
-2. Preencha as variáveis necessárias
+2. Preencha as variaveis necessarias
 
-Variáveis mais importantes:
+Variaveis mais importantes:
 - `TELEGRAM_TOKEN`
 - `CEREBRAS_API_KEY`
 - `TAVILY_API_KEY`
@@ -59,7 +59,7 @@ Observabilidade (opcional):
 - `LANGFUSE_PUBLIC_KEY`
 - `LANGFUSE_BASE_URL`
 
-## Execução
+## Execucao
 
 ```bash
 python src/tele.py
@@ -69,22 +69,30 @@ python src/tele.py
 
 ```text
 src/
-  agents/          # subagentes por domínio
-  mcp_providers/   # conexão com servidores MCP
+  agents/          # subagentes por dominio
+  mcp_providers/   # conexao com servidores MCP
   middleware/      # tratamento de erro e gerenciamento de contexto
-  utils/           # utilitários
+  utils/           # utilitarios
   tele.py          # bot Telegram
   orquestrador.py  # agente principal
+
+experiments/
+  lang_graph/      # provas de conceito e estudos
+  mcp/             # testes de aprendizado com MCP
 ```
 
-## Limitações atuais
+## Experimentos
 
-- Dependência de APIs externas (latência e disponibilidade)
-- Necessidade de configuração correta de chaves/tokens para execução completa
-- Alguns módulos em `src/lang_graph` e `src/mcp` são experimentais (POCs)
+As pastas em `experiments/` sao POCs e estudos tecnicos.
+Elas nao fazem parte do fluxo principal de execucao do bot em producao.
 
-## Próximos passos
+## Limitacoes atuais
 
-- Adicionar testes automatizados (unitários e integração)
-- Criar pipeline de CI (lint + testes + validação de build)
-- Melhorar documentação das tools e contratos de entrada/saída
+- Dependencia de APIs externas (latencia e disponibilidade)
+- Necessidade de configuracao correta de chaves/tokens para execucao completa
+
+## Proximos passos
+
+- Adicionar testes automatizados (unitarios e integracao)
+- Criar pipeline de CI (lint + testes + validacao de build)
+- Melhorar documentacao das tools e contratos de entrada/saida
