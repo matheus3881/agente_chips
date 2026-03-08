@@ -79,12 +79,15 @@ src/
 experiments/
   lang_graph/      # provas de conceito e estudos
   mcp/             # testes de aprendizado com MCP
+  playwright_agent.py
+  mcp/playwright_provider.py
 ```
 
 ## Experimentos
 
 As pastas em `experiments/` sao POCs e estudos tecnicos.
 Elas nao fazem parte do fluxo principal de execucao do bot em producao.
+Integracoes de Playwright tambem estao isoladas nesse escopo experimental.
 
 ## Limitacoes atuais
 
