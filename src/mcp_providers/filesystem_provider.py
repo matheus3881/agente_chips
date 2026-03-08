@@ -1,9 +1,12 @@
+import os
+
 from dotenv import load_dotenv
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
 load_dotenv()
 
 def mcp_filesystem():
+    root_dir = os.getenv("FILESYSTEM_ROOT", os.path.expanduser("~/Desktop"))
     return MultiServerMCPClient(
         {
             "filesystem": {
@@ -12,7 +15,7 @@ def mcp_filesystem():
                 "args": [
                     "-y",
                     "@modelcontextprotocol/server-filesystem",
-                    "C:\\Users\\msantos\\Desktop",
+                    root_dir,
                 ],
             },
         }

@@ -1,4 +1,3 @@
-from email.mime import application
 import logging
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, MessageHandler, filters
@@ -30,11 +29,12 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def echo_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_chat_action(update.effective_chat.id, "typing")
+    chat_id = update.effective_chat.id
     try:
         file_obj = await context.bot.get_file(update.message.voice.file_id)
         audio_bytes = await file_obj.download_as_bytearray()
         texto = await transcribe_voice(bytes(audio_bytes))
-        response = await agent_orquestrador(texto)
+        response = await agent_orquestrador(texto, chat_id)
         await update.message.reply_text(response)
     except Exception as e:
         await update.message.reply_text("Não consegui processar o áudio")
