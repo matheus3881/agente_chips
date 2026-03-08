@@ -1,4 +1,4 @@
-# Agente JurCERJA
+# Agente Chips
 
 Assistente multiagente com interface via Telegram para orquestrar tarefas de pesquisa web, GitHub e filesystem.
 O projeto usa um agente principal (orquestrador) que delega para subagentes especializados.
