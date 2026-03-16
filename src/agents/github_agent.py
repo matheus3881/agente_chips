@@ -1,11 +1,14 @@
 import asyncio
+import os
 from langchain.tools import tool
 from langchain.agents import create_agent
+from langchain_cerebras import ChatCerebras
 from langchain_ollama import ChatOllama
 from mcp_providers.github_provider import mcp_github
 from utils.error_summarizer import summarize_error
 
-model = ChatOllama(model="qwen3.5:4b-q4_K_M", num_ctx=16384)
+# model = ChatOllama(model="qwen3.5:4b-q4_K_M", num_ctx=16384)
+model = ChatCerebras(model="qwen-3-235b-a22b-instruct-2507", api_key=os.getenv("CEREBRAS_API_KEY"))
 
 PROMPT = """
 Você é um agente com acesso direto à API do GitHub através de tools.

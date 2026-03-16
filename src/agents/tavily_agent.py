@@ -1,13 +1,15 @@
 import asyncio
 from datetime import datetime
+import os
 from langchain.agents import create_agent
 from langchain.tools import tool
+from langchain_cerebras import ChatCerebras
 from langchain_ollama import ChatOllama
-from langsmith import expect
 from mcp_providers.tavily_provider import mcp_tavily
 from utils.error_summarizer import summarize_error
 
-model = ChatOllama(model="qwen3.5:4b-q4_K_M", num_ctx=16384).bind_tools([], tool_choice="any")
+# model = ChatOllama(model="qwen3.5:4b-q4_K_M", num_ctx=16384).bind_tools([], tool_choice="any")
+model = ChatCerebras(model="qwen-3-235b-a22b-instruct-2507", api_key=os.getenv("CEREBRAS_API_KEY"))
 
 PROMPT = f"""
 Você é um agente de PESQUISAS WEB.
