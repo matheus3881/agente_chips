@@ -3,7 +3,7 @@ from langchain.tools import tool
 from langchain.agents import create_agent
 from langchain_ollama import ChatOllama
 
-from mcp_providers.filesystem_provider import mcp_filesystem
+from experiments.mcp.filesystem_provider import mcp_filesystem
 from utils.error_summarizer import summarize_error
 
 model = ChatOllama(model="qwen3.5:4b-q4_K_M", num_ctx=16384)
