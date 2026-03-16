@@ -18,7 +18,7 @@ logging.basicConfig(
 
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     msg_human = update.message.text
-    chat_id = update.effective_chat.id
+    chat_id = str(update.effective_chat.id)
     try:
         response = await agent_orquestrador(msg_human, chat_id)
         await context.bot.send_message(chat_id=chat_id, text=response)
@@ -29,7 +29,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def echo_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_chat_action(update.effective_chat.id, "typing")
-    chat_id = update.effective_chat.id
+    chat_id = str(update.effective_chat.id)
     try:
         file_obj = await context.bot.get_file(update.message.voice.file_id)
         audio_bytes = await file_obj.download_as_bytearray()
